@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiSettings } from 'react-icons/fi';
 import Sidebar from '../components/layout/Sidebar';
@@ -7,15 +7,18 @@ import Card from '../components/ui/Card';
 import './SettingsPage.css';
 
 const SettingsPage = () => {
-  const [sidebarOpen, setSidebarOpen] = React.useState(false);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   return (
     <div className="dashboard-page">
-      <Sidebar />
-
-      <div className={`dashboard-main ${sidebarOpen ? 'sidebar-open' : ''}`}>
-        <TopBar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
-
+      <Sidebar 
+        mobileOpen={mobileSidebarOpen}
+        onMobileClose={() => setMobileSidebarOpen(false)}
+      />
+      
+      <div className="dashboard-main">
+        <TopBar onMenuClick={() => setMobileSidebarOpen(true)} />
+        
         <div className="dashboard-content">
           <motion.div
             className="settings-header"
@@ -45,7 +48,7 @@ const SettingsPage = () => {
                   would be configured here in the full production version.
                 </p>
               </div>
-
+              
               <div className="settings-section">
                 <h3>AI Preferences</h3>
                 <p className="settings-placeholder">
@@ -53,7 +56,7 @@ const SettingsPage = () => {
                   communication channel preferences.
                 </p>
               </div>
-
+              
               <div className="settings-section">
                 <h3>Billing</h3>
                 <p className="settings-placeholder">

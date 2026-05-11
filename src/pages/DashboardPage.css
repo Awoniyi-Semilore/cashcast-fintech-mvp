@@ -6,29 +6,30 @@
 
 .dashboard-main {
   flex: 1;
-  margin-left: 260px;
+  margin-left: 240px;
   min-height: 100vh;
   transition: margin-left var(--transition-base);
 }
 
 .dashboard-content {
-  padding: var(--space-6);
+  padding: var(--space-5);
   max-width: 1400px;
 }
 
 .dashboard-header {
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
 }
 
 .dashboard-header h1 {
   margin: 0 0 var(--space-2) 0;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .dashboard-header p {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   color: var(--color-text-secondary);
 }
 
@@ -36,37 +37,37 @@
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-5);
-  margin-bottom: var(--space-8);
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
 }
 
 /* Dashboard Grid */
 .dashboard-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: var(--space-6);
+  gap: var(--space-5);
 }
 
 .dashboard-main-col {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-5);
 }
 
 .dashboard-side-col {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-5);
 }
 
 /* Prediction Accuracy Card */
 .prediction-accuracy-card,
 .avg-payment-card {
   background: var(--color-bg-glass);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
   border: var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: var(--space-6);
+  padding: var(--space-5);
 }
 
 .prediction-accuracy-header,
@@ -74,19 +75,19 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-4);
   color: var(--color-text-secondary);
 }
 
 .prediction-accuracy-header svg,
 .avg-payment-header svg {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
 }
 
 .prediction-accuracy-header h4,
 .avg-payment-header h4 {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text-primary);
 }
@@ -99,22 +100,22 @@
 .accuracy-percent,
 .avg-days {
   display: block;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 800;
-  color: var(--color-success);
+  color: var(--color-accent);
   letter-spacing: -0.02em;
 }
 
 .accuracy-label,
 .avg-label {
   display: block;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: var(--color-text-secondary);
   margin-top: var(--space-1);
 }
 
 .prediction-accuracy-bar {
-  height: 6px;
+  height: 4px;
   background: var(--color-bg-tertiary);
   border-radius: var(--radius-full);
   overflow: hidden;
@@ -138,11 +139,11 @@
   .dashboard-main {
     margin-left: 0;
   }
-
+  
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
-
+  
   .dashboard-side-col {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -153,16 +154,17 @@
   .dashboard-content {
     padding: var(--space-4);
   }
-
+  
   .stats-grid {
     grid-template-columns: 1fr;
   }
-
+  
   .dashboard-side-col {
     grid-template-columns: 1fr;
   }
-
+  
   .dashboard-header h1 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 }
+

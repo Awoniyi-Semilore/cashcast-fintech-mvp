@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
   flex-wrap: wrap;
   gap: var(--space-4);
 }
@@ -10,23 +10,24 @@
 .invoices-title {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
 .invoices-icon {
-  font-size: 2rem;
-  color: #8b5cf6;
+  font-size: 1.75rem;
+  color: var(--color-accent);
 }
 
 .invoices-title h1 {
-  margin: 0 0 var(--space-2) 0;
-  font-size: 1.75rem;
+  margin: 0 0 var(--space-1) 0;
+  font-size: 1.5rem;
   font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .invoices-title p {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   color: var(--color-text-secondary);
 }
 
@@ -34,31 +35,31 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-3) var(--space-5);
+  padding: var(--space-3) var(--space-4);
   background: var(--gradient-primary);
-  color: white;
+  color: var(--color-text-inverse);
   border: none;
   border-radius: var(--radius-md);
   font-family: 'Inter', sans-serif;
   font-weight: 600;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   cursor: pointer;
   transition: all var(--transition-base);
-  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 2px 8px rgba(0, 212, 170, 0.2);
 }
 
 .invoices-add-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 212, 170, 0.3);
 }
 
 .invoices-filters {
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-5);
 }
 
 .invoices-filter-tabs {
   display: flex;
-  gap: var(--space-2);
+  gap: var(--space-1);
   background: var(--color-bg-tertiary);
   padding: var(--space-1);
   border-radius: var(--radius-md);
@@ -69,13 +70,13 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-2) var(--space-3);
   background: none;
   border: none;
   border-radius: var(--radius-sm);
   color: var(--color-text-secondary);
   font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -92,16 +93,16 @@
 }
 
 .invoices-filter-count {
-  padding: 2px 8px;
-  background: var(--color-bg-tertiary);
+  padding: 1px 6px;
+  background: rgba(255, 255, 255, 0.04);
   border-radius: var(--radius-full);
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 600;
 }
 
 .invoices-filter-active .invoices-filter-count {
-  background: rgba(139, 92, 246, 0.2);
-  color: #c084fc;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
 }
 
 @media (max-width: 640px) {
@@ -109,11 +110,11 @@
     flex-direction: column;
     align-items: flex-start;
   }
-
+  
   .invoices-filter-tabs {
     width: 100%;
   }
-
+  
   .invoices-filter-tab {
     flex: 1;
     justify-content: center;

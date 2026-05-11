@@ -6,31 +6,32 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-4);
 }
 
 .invoice-list-header h3 {
   margin: 0;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .invoice-list-view-all {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-1);
   background: none;
   border: none;
-  color: #8b5cf6;
+  color: var(--color-accent);
   font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .invoice-list-view-all:hover {
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
 
 .invoice-list {
@@ -42,7 +43,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-4) 0;
+  padding: var(--space-3) 0;
   border-bottom: var(--border-subtle);
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -54,27 +55,27 @@
 
 .invoice-list-item:hover {
   background: rgba(255, 255, 255, 0.02);
-  margin: 0 calc(-1 * var(--space-6));
-  padding-left: var(--space-6);
-  padding-right: var(--space-6);
+  margin: 0 calc(-1 * var(--space-5));
+  padding-left: var(--space-5);
+  padding-right: var(--space-5);
 }
 
 .invoice-list-item-main {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
   flex: 1;
   min-width: 0;
 }
 
 .invoice-list-status {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.125rem;
+  font-size: 1rem;
   flex-shrink: 0;
 }
 
@@ -85,7 +86,7 @@
 
 .invoice-list-status-paid {
   background: var(--color-success-bg);
-  color: var(--color-success);
+  color: var(--color-accent);
 }
 
 .invoice-list-status-overdue {
@@ -99,7 +100,7 @@
 
 .invoice-list-info h4 {
   margin: 0 0 2px 0;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text-primary);
   white-space: nowrap;
@@ -109,7 +110,7 @@
 
 .invoice-list-info p {
   margin: 0;
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   color: var(--color-text-muted);
   white-space: nowrap;
   overflow: hidden;
@@ -119,18 +120,18 @@
 .invoice-list-item-meta {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
   flex-shrink: 0;
 }
 
 .invoice-list-amount {
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   font-weight: 700;
   color: var(--color-text-primary);
 }
 
 .invoice-list-date {
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   color: var(--color-text-muted);
   white-space: nowrap;
 }
@@ -139,24 +140,17 @@
   .invoice-list-item {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--space-3);
+    gap: var(--space-2);
   }
-
+  
   .invoice-list-item-meta {
     width: 100%;
     justify-content: space-between;
   }
-
+  
   .invoice-list-item:hover {
     margin: 0 calc(-1 * var(--space-4));
     padding-left: var(--space-4);
     padding-right: var(--space-4);
-  }
-}
-
-@media (max-width: 480px) {
-  .invoice-list-item-meta {
-    flex-wrap: wrap;
-    gap: var(--space-2);
   }
 }

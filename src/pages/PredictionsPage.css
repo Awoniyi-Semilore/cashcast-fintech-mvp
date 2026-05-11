@@ -1,57 +1,59 @@
 .predictions-header {
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
 }
 
 .predictions-title {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
 .predictions-icon {
-  font-size: 2rem;
-  color: #8b5cf6;
+  font-size: 1.75rem;
+  color: var(--color-accent);
 }
 
 .predictions-title h1 {
-  margin: 0 0 var(--space-2) 0;
-  font-size: 1.75rem;
+  margin: 0 0 var(--space-1) 0;
+  font-size: 1.5rem;
   font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .predictions-title p {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   color: var(--color-text-secondary);
 }
 
 .predictions-summary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-5);
-  margin-bottom: var(--space-8);
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
 }
 
 .predictions-summary-card {
   background: var(--color-bg-glass);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
   border: var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: var(--space-6);
+  padding: var(--space-5);
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
 }
 
 .summary-label {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: var(--color-text-secondary);
 }
 
 .summary-value {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: var(--color-text-primary);
+  letter-spacing: -0.02em;
 }
 
 .summary-risk {
@@ -61,7 +63,7 @@
 .predictions-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-6);
+  gap: var(--space-5);
 }
 
 @media (max-width: 1024px) {

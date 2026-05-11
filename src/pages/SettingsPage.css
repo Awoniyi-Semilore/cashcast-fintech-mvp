@@ -1,27 +1,30 @@
+
+
 .settings-header {
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
 }
 
 .settings-title {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
 .settings-icon {
-  font-size: 2rem;
-  color: #8b5cf6;
+  font-size: 1.75rem;
+  color: var(--color-accent);
 }
 
 .settings-title h1 {
-  margin: 0 0 var(--space-2) 0;
-  font-size: 1.75rem;
+  margin: 0 0 var(--space-1) 0;
+  font-size: 1.5rem;
   font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .settings-title p {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   color: var(--color-text-secondary);
 }
 
@@ -30,7 +33,7 @@
 }
 
 .settings-section {
-  padding: var(--space-6) 0;
+  padding: var(--space-5) 0;
   border-bottom: var(--border-subtle);
 }
 
@@ -45,13 +48,15 @@
 
 .settings-section h3 {
   margin: 0 0 var(--space-3) 0;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .settings-placeholder {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   color: var(--color-text-secondary);
   line-height: 1.6;
 }
+

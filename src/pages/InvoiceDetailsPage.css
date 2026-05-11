@@ -1,3 +1,5 @@
+
+
 .back-btn {
   display: inline-flex;
   align-items: center;
@@ -6,9 +8,9 @@
   border: none;
   color: var(--color-text-muted);
   font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   cursor: pointer;
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-5);
   transition: color var(--transition-fast);
 }
 
@@ -19,19 +21,19 @@
 .invoice-details-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: var(--space-6);
+  gap: var(--space-5);
 }
 
 .invoice-details-main {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-5);
 }
 
 .invoice-details-side {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-5);
 }
 
 .invoice-details-card {
@@ -42,7 +44,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
   flex-wrap: wrap;
   gap: var(--space-4);
 }
@@ -55,8 +57,9 @@
 
 .invoice-details-title h1 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .invoice-details-amount {
@@ -66,13 +69,13 @@
 }
 
 .amount-currency {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--color-text-muted);
 }
 
 .amount-value {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 800;
   color: var(--color-text-primary);
   letter-spacing: -0.02em;
@@ -81,14 +84,14 @@
 .invoice-details-info {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
-  margin-bottom: var(--space-8);
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
 }
 
 .info-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-5);
+  gap: var(--space-4);
 }
 
 .info-item {
@@ -99,37 +102,40 @@
 
 .info-item svg {
   color: var(--color-text-muted);
-  font-size: 1.125rem;
+  font-size: 1rem;
   margin-top: 2px;
   flex-shrink: 0;
 }
 
 .info-label {
   display: block;
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   color: var(--color-text-muted);
   margin-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .info-value {
   display: block;
-  font-size: 0.9375rem;
-  font-weight: 600;
+  font-size: 0.875rem;
+  font-weight: 500;
   color: var(--color-text-primary);
 }
 
 .invoice-details-actions {
   display: flex;
   gap: var(--space-3);
-  padding-top: var(--space-6);
+  padding-top: var(--space-5);
   border-top: var(--border-subtle);
 }
 
 /* Client History Card */
 .client-history-card h3 {
-  margin: 0 0 var(--space-5) 0;
-  font-size: 1.125rem;
+  margin: 0 0 var(--space-4) 0;
+  font-size: 1rem;
   font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .client-history-item {
@@ -145,18 +151,18 @@
 }
 
 .history-label {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: var(--color-text-secondary);
 }
 
 .history-value {
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   font-weight: 700;
   color: var(--color-text-primary);
 }
 
 .history-good {
-  color: var(--color-success);
+  color: var(--color-accent);
 }
 
 /* Responsive */
@@ -170,12 +176,13 @@
   .info-row {
     grid-template-columns: 1fr;
   }
-
+  
   .invoice-details-actions {
     flex-direction: column;
   }
-
+  
   .amount-value {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 }
+

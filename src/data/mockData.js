@@ -1,3 +1,7 @@
+// src/data/mockCashflowData.js
+
+
+
 // ============================================================
 // MOCK DATA - Realistic fintech dataset for MVP demonstration
 // ============================================================

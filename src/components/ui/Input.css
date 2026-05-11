@@ -1,3 +1,4 @@
+
 .input-wrapper {
   display: flex;
   flex-direction: column;
@@ -9,9 +10,10 @@
 }
 
 .input-label {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: var(--color-text-secondary);
+  letter-spacing: 0.01em;
 }
 
 .input-container {
@@ -24,7 +26,7 @@
   position: absolute;
   left: var(--space-4);
   color: var(--color-text-muted);
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   z-index: 1;
 }
 
@@ -32,18 +34,18 @@
   width: 100%;
   padding: var(--space-3) var(--space-4);
   background: var(--color-bg-tertiary);
-  border: var(--border-subtle);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: var(--radius-md);
   color: var(--color-text-primary);
   font-family: 'Inter', sans-serif;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   transition: all var(--transition-base);
 }
 
 .input-field:focus {
   outline: none;
-  border-color: rgba(139, 92, 246, 0.4);
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  border-color: rgba(0, 212, 170, 0.3);
+  box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.06);
 }
 
 .input-field::placeholder {
@@ -59,10 +61,10 @@
 }
 
 .input-error:focus {
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+  box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.06) !important;
 }
 
 .input-error-text {
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   color: var(--color-danger);
 }

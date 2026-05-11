@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FiFileText, FiPlus, FiSearch, FiFilter } from 'react-icons/fi';
+import { FiFileText, FiPlus } from 'react-icons/fi';
 import Sidebar from '../components/layout/Sidebar';
 import TopBar from '../components/layout/TopBar';
 import InvoiceList from '../components/invoices/InvoiceList';
@@ -10,11 +10,10 @@ import { mockInvoices } from '../data/mockData';
 import './InvoicesListPage.css';
 
 const InvoicesListPage = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [invoices, setInvoices] = useState(mockInvoices);
   const [filter, setFilter] = useState('all');
-  const navigate = useNavigate();
 
   const handleAddInvoice = (newInvoice) => {
     setInvoices([newInvoice, ...invoices]);
@@ -32,11 +31,15 @@ const InvoicesListPage = () => {
 
   return (
     <div className="dashboard-page">
-      <Sidebar onAddInvoice={() => setAddModalOpen(true)} />
-
-      <div className={`dashboard-main ${sidebarOpen ? 'sidebar-open' : ''}`}>
-        <TopBar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
-
+      <Sidebar 
+        onAddInvoice={() => setAddModalOpen(true)}
+        mobileOpen={mobileSidebarOpen}
+        onMobileClose={() => setMobileSidebarOpen(false)}
+      />
+      
+      <div className="dashboard-main">
+        <TopBar onMenuClick={() => setMobileSidebarOpen(true)} />
+        
         <div className="dashboard-content">
           <motion.div
             className="invoices-header"

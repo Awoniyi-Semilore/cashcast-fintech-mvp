@@ -1,29 +1,30 @@
 .cashflow-chart {
   background: var(--color-bg-glass);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
   border: var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: var(--space-6);
+  padding: var(--space-5);
 }
 
 .cashflow-chart-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-5);
   flex-wrap: wrap;
   gap: var(--space-4);
 }
 
 .cashflow-chart-header h3 {
   margin: 0 0 var(--space-1) 0;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .cashflow-chart-header p {
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: var(--color-text-secondary);
 }
 
@@ -36,19 +37,19 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   color: var(--color-text-secondary);
 }
 
 .legend-dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
 }
 
-.legend-predicted { background: #8b5cf6; }
-.legend-actual { background: #10b981; }
-.legend-received { background: #3b82f6; }
+.legend-predicted { background: var(--color-accent); }
+.legend-actual { background: var(--color-success); }
+.legend-received { background: var(--color-secondary); }
 
 .cashflow-chart-container {
   width: 100%;
@@ -64,8 +65,8 @@
 
 .chart-tooltip-label {
   margin: 0 0 var(--space-2) 0;
-  font-weight: 600;
-  font-size: 0.875rem;
+  font-weight: 700;
+  font-size: 0.8125rem;
   color: var(--color-text-primary);
 }
 
@@ -73,13 +74,13 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   margin-bottom: var(--space-1);
 }
 
 .chart-tooltip-dot {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
 }
 
@@ -89,7 +90,7 @@
 
 .chart-tooltip-value {
   color: var(--color-text-primary);
-  font-weight: 600;
+  font-weight: 700;
   margin-left: auto;
 }
 
@@ -97,11 +98,11 @@
   .cashflow-chart {
     padding: var(--space-4);
   }
-
+  
   .cashflow-chart-header {
     flex-direction: column;
   }
-
+  
   .cashflow-chart-legend {
     width: 100%;
     justify-content: flex-start;

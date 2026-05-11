@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
@@ -26,7 +26,7 @@ import './InvoiceDetailsPage.css';
 const InvoiceDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [sidebarOpen, setSidebarOpen] = React.useState(false);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   const invoice = mockInvoices.find(inv => inv.id === id) || mockInvoices[0];
 
@@ -41,11 +41,14 @@ const InvoiceDetailsPage = () => {
 
   return (
     <div className="dashboard-page">
-      <Sidebar />
-
-      <div className={`dashboard-main ${sidebarOpen ? 'sidebar-open' : ''}`}>
-        <TopBar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
-
+      <Sidebar 
+        mobileOpen={mobileSidebarOpen}
+        onMobileClose={() => setMobileSidebarOpen(false)}
+      />
+      
+      <div className="dashboard-main">
+        <TopBar onMenuClick={() => setMobileSidebarOpen(true)} />
+        
         <div className="dashboard-content">
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -88,7 +91,7 @@ const InvoiceDetailsPage = () => {
                         </div>
                       </div>
                     </div>
-
+                    
                     <div className="info-row">
                       <div className="info-item">
                         <FiMail />

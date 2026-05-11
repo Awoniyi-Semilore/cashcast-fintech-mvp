@@ -1,20 +1,17 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FiSearch, 
   FiBell, 
-  FiMenu,
-  FiX,
-  FiChevronDown
+  FiMenu
 } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import './TopBar.css';
 
 const TopBar = ({ onMenuClick, notificationCount = 3 }) => {
   const { user } = useAuth();
-  const navigate = useNavigate();
-  const [searchOpen, setSearchOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
 
   const notifications = [
@@ -55,9 +52,9 @@ const TopBar = ({ onMenuClick, notificationCount = 3 }) => {
             {notificationsOpen && (
               <motion.div
                 className="topbar-dropdown"
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                initial={{ opacity: 0, y: 8, scale: 0.96 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                exit={{ opacity: 0, y: 8, scale: 0.96 }}
                 transition={{ duration: 0.2 }}
               >
                 <div className="topbar-dropdown-header">
@@ -80,9 +77,6 @@ const TopBar = ({ onMenuClick, notificationCount = 3 }) => {
         <div className="topbar-user">
           <div className="topbar-user-avatar">
             {user?.displayName?.[0] || user?.email?.[0] || 'U'}
-          </div>
-          <div className="topbar-user-info">
-            <span className="topbar-user-name">{user?.displayName || 'User'}</span>
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ import { mockInvoices, mockStats, mockActivity } from '../data/mockData';
 import './DashboardPage.css';
 
 const DashboardPage = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [invoices, setInvoices] = useState(mockInvoices);
 
@@ -28,15 +28,18 @@ const DashboardPage = () => {
   };
 
   const pendingInvoices = invoices.filter(inv => inv.status === 'pending');
-  const paidInvoices = invoices.filter(inv => inv.status === 'paid');
 
   return (
     <div className="dashboard-page">
-      <Sidebar onAddInvoice={() => setAddModalOpen(true)} />
-
-      <div className={`dashboard-main ${sidebarOpen ? 'sidebar-open' : ''}`}>
-        <TopBar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
-
+      <Sidebar 
+        onAddInvoice={() => setAddModalOpen(true)} 
+        mobileOpen={mobileSidebarOpen}
+        onMobileClose={() => setMobileSidebarOpen(false)}
+      />
+      
+      <div className="dashboard-main">
+        <TopBar onMenuClick={() => setMobileSidebarOpen(true)} />
+        
         <div className="dashboard-content">
           <motion.div
             className="dashboard-header"
@@ -88,7 +91,7 @@ const DashboardPage = () => {
           <div className="dashboard-grid">
             <div className="dashboard-main-col">
               <CashflowChart />
-
+              
               <div className="dashboard-section">
                 <InvoiceList 
                   invoices={pendingInvoices} 
@@ -99,7 +102,7 @@ const DashboardPage = () => {
 
             <div className="dashboard-side-col">
               <ActivityFeed activities={mockActivity} />
-
+              
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -154,3 +157,8 @@ const DashboardPage = () => {
 };
 
 export default DashboardPage;
+
+
+
+
+

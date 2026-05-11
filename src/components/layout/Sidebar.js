@@ -1,6 +1,6 @@
-import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FiLayout, 
   FiFileText, 
@@ -8,14 +8,17 @@ import {
   FiBell, 
   FiSettings, 
   FiLogOut,
-  FiPlus
+  FiPlus,
+  FiX,
+  FiMenu
 } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import './Sidebar.css';
 
-const Sidebar = ({ onAddInvoice }) => {
+const Sidebar = ({ onAddInvoice, mobileOpen, onMobileClose }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const menuItems = [
     { icon: FiLayout, label: 'Dashboard', path: '/dashboard' },
@@ -34,22 +37,31 @@ const Sidebar = ({ onAddInvoice }) => {
     }
   };
 
-  return (
-    <aside className="sidebar">
+  // Close mobile sidebar on route change
+  useEffect(() => {
+    if (onMobileClose) onMobileClose();
+  }, [location.pathname]);
+
+  const sidebarContent = (
+    <>
       <div className="sidebar-header">
         <div className="sidebar-logo">
-          <svg width="32" height="32" viewBox="0 0 28 28" fill="none">
-            <rect width="28" height="28" rx="8" fill="url(#sidebar-logo-gradient)" />
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect width="28" height="28" rx="7" fill="url(#sidebar-logo-gradient)" />
             <path d="M8 14h12M14 8v12" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
             <defs>
               <linearGradient id="sidebar-logo-gradient" x1="0" y1="0" x2="28" y2="28">
-                <stop stopColor="#6366f1" />
-                <stop offset="1" stopColor="#a855f7" />
+                <stop stopColor="#00d4aa" />
+                <stop offset="1" stopColor="#3b82f6" />
               </linearGradient>
             </defs>
           </svg>
           <span className="sidebar-logo-text">CashCast</span>
         </div>
+        {/* Mobile close button inside sidebar */}
+        <button className="sidebar-mobile-close" onClick={onMobileClose}>
+          <FiX />
+        </button>
       </div>
 
       <div className="sidebar-quick-action">
@@ -60,29 +72,23 @@ const Sidebar = ({ onAddInvoice }) => {
       </div>
 
       <nav className="sidebar-nav">
-        {menuItems.map((item, index) => (
+        {menuItems.map((item) => (
           <NavLink
-  key={item.path}
-  to={item.path}
-  className={({ isActive }) =>
-    `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`
-  }
->
-  {({ isActive }) => (
-    <>
-      <item.icon className="sidebar-link-icon" />
-      <span className="sidebar-link-label">{item.label}</span>
-
-      {isActive && (
-        <motion.div
-          className="sidebar-active-indicator"
-          layoutId="sidebar-active"
-          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        />
-      )}
-    </>
-  )}
-</NavLink>
+            key={item.path}
+            to={item.path}
+            className={({ isActive }) => `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`}
+            onClick={() => { if (window.innerWidth < 1024) onMobileClose(); }}
+          >
+            <item.icon className="sidebar-link-icon" />
+            <span className="sidebar-link-label">{item.label}</span>
+            {({ isActive }) => isActive && (
+              <motion.div
+                className="sidebar-active-indicator"
+                layoutId="sidebar-active"
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              />
+            )}
+          </NavLink>
         ))}
       </nav>
 
@@ -101,8 +107,43 @@ const Sidebar = ({ onAddInvoice }) => {
           <span>Logout</span>
         </button>
       </div>
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      {/* Desktop Sidebar — always visible */}
+      <aside className="sidebar-desktop">
+        {sidebarContent}
+      </aside>
+
+      {/* Mobile Sidebar — overlay with backdrop */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <>
+            <motion.div
+              className="sidebar-mobile-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={onMobileClose}
+            />
+            <motion.aside
+              className="sidebar-mobile"
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            >
+              {sidebarContent}
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
 export default Sidebar;
+

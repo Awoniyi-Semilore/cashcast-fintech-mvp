@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiBell, FiMessageCircle, FiMail, FiSmartphone, FiSend } from 'react-icons/fi';
+import { FiBell, FiMessageCircle, FiMail, FiSmartphone } from 'react-icons/fi';
 import Sidebar from '../components/layout/Sidebar';
 import TopBar from '../components/layout/TopBar';
 import ReminderPreview from '../components/reminders/ReminderPreview';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
-import Button from '../components/ui/Button';
 import { mockInvoices } from '../data/mockData';
 import './RemindersPage.css';
 
 const RemindersPage = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [selectedInvoice, setSelectedInvoice] = useState(mockInvoices[0]);
   const pendingInvoices = mockInvoices.filter(inv => inv.status === 'pending');
 
   return (
     <div className="dashboard-page">
-      <Sidebar />
-
-      <div className={`dashboard-main ${sidebarOpen ? 'sidebar-open' : ''}`}>
-        <TopBar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
-
+      <Sidebar 
+        mobileOpen={mobileSidebarOpen}
+        onMobileClose={() => setMobileSidebarOpen(false)}
+      />
+      
+      <div className="dashboard-main">
+        <TopBar onMenuClick={() => setMobileSidebarOpen(true)} />
+        
         <div className="dashboard-content">
           <motion.div
             className="reminders-header"
@@ -50,7 +52,7 @@ const RemindersPage = () => {
                   <p className="reminders-list-subtitle">
                     Select an invoice to generate a personalized reminder
                   </p>
-
+                  
                   <div className="reminders-invoice-list">
                     {pendingInvoices.map((invoice, index) => (
                       <motion.div
@@ -135,7 +137,7 @@ const RemindersPage = () => {
                       <FiSmartphone /> Preferred communication channel
                     </li>
                     <li>
-                      <FiSend /> Invoice urgency and risk level
+                      <FiBell /> Invoice urgency and risk level
                     </li>
                   </ul>
                 </Card>

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiCpu, FiFilter } from 'react-icons/fi';
+import { FiCpu } from 'react-icons/fi';
 import Sidebar from '../components/layout/Sidebar';
 import TopBar from '../components/layout/TopBar';
 import PredictionCard from '../components/predictions/PredictionCard';
@@ -8,16 +8,19 @@ import { mockInvoices } from '../data/mockData';
 import './PredictionsPage.css';
 
 const PredictionsPage = () => {
-  const [sidebarOpen, setSidebarOpen] = React.useState(false);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const pendingInvoices = mockInvoices.filter(inv => inv.status === 'pending');
 
   return (
     <div className="dashboard-page">
-      <Sidebar />
-
-      <div className={`dashboard-main ${sidebarOpen ? 'sidebar-open' : ''}`}>
-        <TopBar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
-
+      <Sidebar 
+        mobileOpen={mobileSidebarOpen}
+        onMobileClose={() => setMobileSidebarOpen(false)}
+      />
+      
+      <div className="dashboard-main">
+        <TopBar onMenuClick={() => setMobileSidebarOpen(true)} />
+        
         <div className="dashboard-content">
           <motion.div
             className="predictions-header"

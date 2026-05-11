@@ -122,36 +122,147 @@ const LandingPage = () => {
         </div>
 
         <motion.div 
-          className="hero-dashboard-preview"
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-        >
-          <div className="hero-dashboard-mockup">
-            <div className="mockup-header">
-              <div className="mockup-dots">
-                <span /><span /><span />
+  className="hero-dashboard-preview"
+  initial={{ opacity: 0, y: 60 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 1, delay: 0.3 }}
+>
+  <div className="hero-dashboard-mockup">
+    <div className="mockup-header">
+      <div className="mockup-dots">
+        <span /><span /><span />
+      </div>
+      <span className="mockup-window-title">CashCast Dashboard</span>
+      <div style={{ width: 40 }} /> {/* spacer for balance */}
+    </div>
+    <div className="mockup-content">
+      <div className="mockup-sidebar">
+        <div className="mockup-sidebar-logo">
+          <div className="mockup-sidebar-logo-icon" />
+          <span className="mockup-sidebar-logo-text">CashCast</span>
+        </div>
+        <div className="mockup-sidebar-item active">
+          <div className="mockup-sidebar-icon" />
+          <span>Dashboard</span>
+        </div>
+        <div className="mockup-sidebar-item">
+          <div className="mockup-sidebar-icon" />
+          <span>Invoices</span>
+        </div>
+        <div className="mockup-sidebar-item">
+          <div className="mockup-sidebar-icon" />
+          <span>Clients</span>
+        </div>
+        <div className="mockup-sidebar-item">
+          <div className="mockup-sidebar-icon" />
+          <span>Analytics</span>
+        </div>
+        <div className="mockup-sidebar-item">
+          <div className="mockup-sidebar-icon" />
+          <span>Reminders</span>
+        </div>
+      </div>
+      <div className="mockup-main">
+        <div className="mockup-stats">
+          <div className="mockup-stat">
+            <span className="mockup-stat-label">Expected</span>
+            <span className="mockup-stat-value">$28,400</span>
+            <span className="mockup-stat-change">+12.5% this month</span>
+          </div>
+          <div className="mockup-stat">
+            <span className="mockup-stat-label">Pending</span>
+            <span className="mockup-stat-value">$28,400</span>
+            <span className="mockup-stat-change">5 active invoices</span>
+          </div>
+          <div className="mockup-stat">
+            <span className="mockup-stat-label">Received</span>
+            <span className="mockup-stat-value">$11,200</span>
+            <span className="mockup-stat-change">3 payments</span>
+          </div>
+          <div className="mockup-stat">
+            <span className="mockup-stat-label">Avg Time</span>
+            <span className="mockup-stat-value">3.2 days</span>
+            <span className="mockup-stat-change negative">-0.8 vs last month</span>
+          </div>
+        </div>
+        <div className="mockup-chart-area">
+          <div className="mockup-chart-header">
+            <span className="mockup-chart-title">Cashflow Forecast</span>
+            <div className="mockup-chart-legend">
+              <div className="mockup-chart-legend-item">
+                <div className="mockup-chart-legend-dot" style={{ background: '#00d4aa' }} />
+                <span>Predicted</span>
               </div>
-            </div>
-            <div className="mockup-content">
-              <div className="mockup-sidebar" />
-              <div className="mockup-main">
-                <div className="mockup-stats">
-                  <div className="mockup-stat" />
-                  <div className="mockup-stat" />
-                  <div className="mockup-stat" />
-                  <div className="mockup-stat" />
-                </div>
-                <div className="mockup-chart" />
-                <div className="mockup-list">
-                  <div className="mockup-list-item" />
-                  <div className="mockup-list-item" />
-                  <div className="mockup-list-item" />
-                </div>
+              <div className="mockup-chart-legend-item">
+                <div className="mockup-chart-legend-dot" style={{ background: '#6366f1' }} />
+                <span>Actual</span>
               </div>
             </div>
           </div>
-        </motion.div>
+          <div className="mockup-chart-visual">
+            {[
+              { h: 45, l: 'Jan' },
+              { h: 55, l: 'Feb' },
+              { h: 40, l: 'Mar' },
+              { h: 60, l: 'Apr' },
+              { h: 75, l: 'May' },
+              { h: 65, l: 'Jun' },
+            ].map((bar, i) => (
+              <div key={i} className="mockup-chart-bar" style={{ height: `${bar.h}%`, background: i < 4 ? '#6366f1' : '#00d4aa' }}>
+                <span className="mockup-chart-bar-label">{bar.l}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="mockup-list">
+          <div className="mockup-list-header">
+            <span className="mockup-list-title">Recent Invoices</span>
+            <span className="mockup-list-viewall">View All</span>
+          </div>
+          <div className="mockup-list-item">
+            <div className="mockup-list-item-main">
+              <div className="mockup-list-avatar">TS</div>
+              <div className="mockup-list-info">
+                <span className="mockup-list-name">TechFlow Solutions</span>
+                <span className="mockup-list-desc">Website redesign</span>
+              </div>
+            </div>
+            <div className="mockup-list-meta">
+              <span className="mockup-list-amount">$4,500</span>
+              <span className="mockup-list-status pending">Pending</span>
+            </div>
+          </div>
+          <div className="mockup-list-item">
+            <div className="mockup-list-item-main">
+              <div className="mockup-list-avatar">GL</div>
+              <div className="mockup-list-info">
+                <span className="mockup-list-name">GreenLeaf Agency</span>
+                <span className="mockup-list-desc">Brand identity</span>
+              </div>
+            </div>
+            <div className="mockup-list-meta">
+              <span className="mockup-list-amount">$2,800</span>
+              <span className="mockup-list-status pending">Pending</span>
+            </div>
+          </div>
+          <div className="mockup-list-item">
+            <div className="mockup-list-item-main">
+              <div className="mockup-list-avatar">SN</div>
+              <div className="mockup-list-info">
+                <span className="mockup-list-name">StartupNest</span>
+                <span className="mockup-list-desc">Landing page</span>
+              </div>
+            </div>
+            <div className="mockup-list-meta">
+              <span className="mockup-list-amount">$1,500</span>
+              <span className="mockup-list-status paid">Paid</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</motion.div>
       </section>
 
       {/* Features Section */}
