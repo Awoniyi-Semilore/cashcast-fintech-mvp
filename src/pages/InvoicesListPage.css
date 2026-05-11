@@ -1,0 +1,121 @@
+.invoices-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.invoices-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.invoices-icon {
+  font-size: 2rem;
+  color: #8b5cf6;
+}
+
+.invoices-title h1 {
+  margin: 0 0 var(--space-2) 0;
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+
+.invoices-title p {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+}
+
+.invoices-add-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
+}
+
+.invoices-add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+}
+
+.invoices-filters {
+  margin-bottom: var(--space-6);
+}
+
+.invoices-filter-tabs {
+  display: flex;
+  gap: var(--space-2);
+  background: var(--color-bg-tertiary);
+  padding: var(--space-1);
+  border-radius: var(--radius-md);
+  width: fit-content;
+}
+
+.invoices-filter-tab {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.invoices-filter-tab:hover {
+  color: var(--color-text-primary);
+}
+
+.invoices-filter-active {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.invoices-filter-count {
+  padding: 2px 8px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.invoices-filter-active .invoices-filter-count {
+  background: rgba(139, 92, 246, 0.2);
+  color: #c084fc;
+}
+
+@media (max-width: 640px) {
+  .invoices-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .invoices-filter-tabs {
+    width: 100%;
+  }
+
+  .invoices-filter-tab {
+    flex: 1;
+    justify-content: center;
+  }
+}

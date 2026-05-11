@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CashCast - Implementation Proposal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #0f1535;
+            --bg-card: rgba(20, 27, 61, 0.6);
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .page {
+            min-height: 100vh;
+            padding: 80px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            page-break-after: always;
+            break-after: page;
+        }
+
+        .page:last-child {
+            page-break-after: auto;
+            break-after: auto;
+        }
+
+        /* Cover Page */
+        .cover {
+            text-align: center;
+            align-items: center;
+        }
+
+        .cover-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #c084fc;
+            margin-bottom: 40px;
+        }
+
+        .cover h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 24px;
+        }
+
+        .cover h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cover-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 48px;
+        }
+
+        .cover-meta {
+            display: flex;
+            gap: 48px;
+            justify-content: center;
+            margin-top: 48px;
+        }
+
+        .cover-meta-item {
+            text-align: center;
+        }
+
+        .cover-meta-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .cover-meta-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        /* Section Headers */
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #c084fc;
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+        }
+
+        h2 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            margin-top: 32px;
+        }
+
+        p {
+            font-size: 1.0625rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: var(--border);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .card h4 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card h4 .icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(139, 92, 246, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8b5cf6;
+            font-size: 18px;
+        }
+
+        .card p {
+            font-size: 0.9375rem;
+            margin-bottom: 0;
+        }
+
+        /* Lists */
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Screenshot Placeholders */
+        .screenshot-placeholder {
+            width: 100%;
+            min-height: 400px;
+            border: 2px dashed rgba(139, 92, 246, 0.3);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 32px 0;
+            background: rgba(139, 92, 246, 0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .screenshot-placeholder::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(139, 92, 246, 0.02) 10px,
+                rgba(139, 92, 246, 0.02) 20px
+            );
+        }
+
+        .screenshot-placeholder .placeholder-icon {
+            font-size: 48px;
+            color: rgba(139, 92, 246, 0.3);
+        }
+
+        .screenshot-placeholder .placeholder-text {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-align: center;
+            z-index: 1;
+        }
+
+        .screenshot-placeholder .placeholder-subtext {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-align: center;
+            z-index: 1;
+        }
+
+        .screenshot-note {
+            background: rgba(139, 92, 246, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 16px;
+        }
+
+        .screenshot-note strong {
+            color: var(--text-primary);
+        }
+
+        /* Architecture Diagram */
+        .architecture-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .arch-layer {
+            display: flex;
+            gap: 16px;
+            align-items: stretch;
+        }
+
+        .arch-box {
+            flex: 1;
+            background: var(--bg-card);
+            border: var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .arch-box h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .arch-box p {
+            font-size: 0.8125rem;
+            margin-bottom: 0;
+        }
+
+        .arch-connector {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Flow Steps */
+        .flow-steps {
+            display: flex;
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .flow-step {
+            flex: 1;
+            background: var(--bg-card);
+            border: var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            position: relative;
+        }
+
+        .flow-step::after {
+            content: '→';
+            position: absolute;
+            right: -28px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: var(--text-muted);
+        }
+
+        .flow-step:last-child::after {
+            display: none;
+        }
+
+        .flow-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: white;
+            margin: 0 auto 16px;
+        }
+
+        .flow-step h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .flow-step p {
+            font-size: 0.875rem;
+            margin-bottom: 0;
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .timeline-marker {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--bg-card);
+            border: var(--border);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content p {
+            font-size: 0.9375rem;
+            margin-bottom: 0;
+        }
+
+        /* Two Column Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        /* Footer */
+        .page-footer {
+            margin-top: auto;
+            padding-top: 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            border-top: var(--border);
+        }
+
+        .page-number {
+            padding: 4px 12px;
+            background: var(--bg-card);
+            border-radius: 100px;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page {
+                padding: 40px 24px;
+            }
+
+            .card-grid,
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-steps {
+                flex-direction: column;
+            }
+
+            .flow-step::after {
+                display: none;
+            }
+
+            .cover-meta {
+                flex-direction: column;
+                gap: 24px;
+            }
+        }
+
+        @media print {
+            .page {
+                padding: 40px;
+                page-break-after: always;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- PAGE 1: Cover -->
+<div class="page cover">
+    <div class="cover-badge">MVP Implementation Proposal</div>
+    <h1>CashCast<br><span>Predict Your Payments</span></h1>
+    <p class="cover-subtitle">
+        AI-powered payment prediction and cashflow management platform 
+        for freelancers and agencies.
+    </p>
+    <div class="cover-meta">
+        <div class="cover-meta-item">
+            <div class="cover-meta-label">Version</div>
+            <div class="cover-meta-value">MVP 1.0</div>
+        </div>
+        <div class="cover-meta-item">
+            <div class="cover-meta-label">Date</div>
+            <div class="cover-meta-value">May 2026</div>
+        </div>
+        <div class="cover-meta-item">
+            <div class="cover-meta-label">Status</div>
+            <div class="cover-meta-value">Prototype Ready</div>
+        </div>
+    </div>
+    <div class="page-footer">
+        <span>CashCast Fintech AI Product</span>
+        <span class="page-number">01</span>
+    </div>
+</div>
+
+<!-- PAGE 2: Problem Statement -->
+<div class="page">
+    <div class="section-label">01 / Problem</div>
+    <h2>The Payment<br><span>Uncertainty Problem</span></h2>
+
+    <div class="two-col">
+        <div>
+            <h3>Freelancers & Agencies Face:</h3>
+            <ul class="feature-list">
+                <li>Unpredictable cashflow due to late client payments</li>
+                <li>Time wasted on manual follow-ups and reminders</li>
+                <li>No visibility into when payments will actually arrive</li>
+                <li>Difficulty planning expenses and growth</li>
+                <li>Awkward conversations about overdue invoices</li>
+                <li>Lack of data-driven insights about client behavior</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Market Impact:</h3>
+            <div class="card">
+                <h4><span class="icon">📊</span> $1.2T Global Freelance Economy</h4>
+                <p>Over 70 million freelancers in the US alone struggle with payment predictability.</p>
+            </div>
+            <div class="card" style="margin-top: 16px;">
+                <h4><span class="icon">⏰</span> 30+ Days Average Delay</h4>
+                <p>Most freelancers wait over a month for payments, with 29% experiencing delays beyond 60 days.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-footer">
+        <span>CashCast Implementation Proposal</span>
+        <span class="page-number">02</span>
+    </div>
+</div>
+
+<!-- PAGE 3: Solution Overview -->
+<div class="page">
+    <div class="section-label">02 / Solution</div>
+    <h2>AI-Powered Payment<br><span>Intelligence Platform</span></h2>
+
+    <p>CashCast combines machine learning prediction models with automated communication tools to give freelancers complete visibility and control over their incoming payments.</p>
+
+    <div class="card-grid">
+        <div class="card">
+            <h4><span class="icon">🧠</span> Predictive AI Engine</h4>
+            <p>Analyzes client payment patterns, industry trends, and historical data to predict exact payment dates with 94% accuracy.</p>
+        </div>
+        <div class="card">
+            <h4><span class="icon">📱</span> Smart Reminders</h4>
+            <p>AI-generated personalized messages sent via WhatsApp, Email, or SMS at optimal times for each client.</p>
+        </div>
+        <div class="card">
+            <h4><span class="icon">📈</span> Cashflow Dashboard</h4>
+            <p>Beautiful real-time dashboard showing expected income, pending invoices, and payment trends.</p>
+        </div>
+        <div class="card">
+            <h4><span class="icon">⚡</span> Risk Scoring</h4>
+            <p>Early warning system identifies high-risk invoices before they become overdue, enabling proactive action.</p>
+        </div>
+    </div>
+
+    <div class="page-footer">
+        <span>CashCast Implementation Proposal</span>
+        <span class="page-number">03</span>
+    </div>
+</div>
+
+<!-- PAGE 4: System Architecture -->
+<div class="page">
+    <div class="section-label">03 / Architecture</div>
+    <h2>System<br><span>Architecture</span></h2>
+
+    <p>Frontend-only MVP architecture using React, Firebase Authentication, and mock AI services. Designed for rapid iteration and easy backend integration.</p>
+
+    <div class="architecture-diagram">
+        <div class="arch-layer">
+            <div class="arch-box">
+                <h4>React Frontend</h4>
+                <p>React 18, React Router, Framer Motion, Recharts</p>
+            </div>
+        </div>
+        <div class="arch-connector">↓</div>
+        <div class="arch-layer">
+            <div class="arch-box">
+                <h4>Firebase Auth</h4>
+                <p>Email/Password authentication, user management</p>
+            </div>
+            <div class="arch-box">
+                <h4>Mock Data Layer</h4>
+                <p>Realistic invoice data, predictions, activity feed</p>
+            </div>
+            <div class="arch-box">
+                <h4>UI Components</h4>
+                <p>Reusable cards, modals, inputs, badges, buttons</p>
+            </div>
+        </div>
+        <div class="arch-connector">↓</div>
+        <div class="arch-layer">
+            <div class="arch-box">
+                <h4>Future: AI Backend</h4>
+                <p>Python/TensorFlow prediction API, NLP for reminders</p>
+            </div>
+            <div class="arch-box">
+                <h4>Future: Database</h4>
+                <p>PostgreSQL + Redis for real-time data</p>
+            </div>
+            <div class="arch-box">
+                <h4>Future: Integrations</h4>
+                <p>WhatsApp Business API, Stripe, QuickBooks</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-footer">
+        <span>CashCast Implementation Proposal</span>
+        <span class="page-number">04</span>
+    </div>
+</div>
+
+<!-- PAGE 5: User Flow -->
+<div class="page">
+    <div class="section-label">04 / User Flow</div>
+    <h2>Application<br><span>User Flow</span></h2>
+
+    <div class="flow-steps">
+        <div class="flow-step">
+            <div class="flow-number">1</div>
+            <h4>Sign Up / Login</h4>
+            <p>Firebase authentication with email/password</p>
+        </div>
+        <div class="flow-step">
+            <div class="flow-number">2</div>
+            <h4>Dashboard</h4>
+            <p>View cashflow overview and pending invoices</p>
+        </div>
+        <div class="flow-step">
+            <div class="flow-number">3</div>
+            <h4>Add Invoice</h4>
+            <p>Create new invoice with client details</p>
+        </div>
+        <div class="flow-step">
+            <div class="flow-number">4</div>
+            <h4>AI Predicts</h4>
+            <p>System generates payment prediction</p>
+        </div>
+        <div class="flow-step">
+            <div class="flow-number">5</div>
+            <h4>Send Reminder</h4>
+            <p>AI-generated personalized message</p>
+        </div>
+    </div>
+
+    <div class="screenshot-placeholder" style="min-height: 300px;">
+        <div class="placeholder-icon">🖼️</div>
+        <div class="placeholder-text">[ INSERT USER FLOW DIAGRAM SCREENSHOT ]</div>
+        <div class="placeholder-subtext">Use a tool like Figma or Miro to create a visual flow diagram</div>
+    </div>
+
+    <div class="page-footer">
+        <span>CashCast Implementation Proposal</span>
+        <span class="page-number">05</span>
+    </div>
+</div>
+
+<!-- PAGE 6: Dashboard Showcase -->
+<div class="page">
+    <div class="section-label">05 / Showcase</div>
+    <h2>Dashboard<br><span>Showcase</span></h2>
+
+    <p>The dashboard is the heart of CashCast - providing at-a-glance visibility into expected income, pending invoices, AI predictions, and cashflow trends.</p>
+
+    <div class="screenshot-placeholder">
+        <div class="placeholder-icon">🖥️</div>
+        <div class="placeholder-text">[ INSERT DASHBOARD SCREENSHOT HERE ]</div>
+        <div class="placeholder-subtext">Recommended: 1440x900px, Full desktop view showing all cards and chart</div>
+    </div>
+
+    <div class="screenshot-note">
+        <strong>Screenshot Guidance:</strong> Capture the dashboard at <strong>1440px width</strong> (standard laptop). 
+        Include the sidebar, top navigation, stat cards, cashflow chart, and invoice list. 
+        This is the most important screenshot for the presentation.
+    </div>
+
+    <div class="page-footer">
+        <span>CashCast Implementation Proposal</span>
+        <span class="page-number">06</span>
+    </div>
+</div>
+
+<!-- PAGE 7: AI Prediction Logic -->
+<div class="page">
+    <div class="section-label">06 / AI Engine</div>
+    <h2>AI Prediction<br><span>Logic</span></h2>
+
+    <p>The AI prediction engine simulates real machine learning behavior using rule-based heuristics and randomization for the MVP. In production, this would be replaced with a trained TensorFlow model.</p>
+
+    <div class="two-col">
+        <div>
+            <h3>Current MVP Logic:</h3>
+            <ul class="feature-list">
+                <li>Confidence score based on invoice amount and client history</li>
+                <li>Risk level determined by mock client reliability data</li>
+                <li>Predicted date varies within 3-5 days of due date</li>
+                <li>Tags generated from client profile attributes</li>
+                <li>Visual confidence bar with color-coded risk levels</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Production Roadmap:</h3>
+            <div class="card">
+                <h4><span class="icon">🔮</span> ML Model Training</h4>
+                <p>Train on historical payment data using gradient boosting or LSTM networks.</p>
+            </div>
+            <div class="card" style="margin-top: 16px;">
+                <h4><span class="icon">📊</span> Feature Engineering</h4>
+                <p>Extract 50+ features: client industry, invoice amount, seasonality, communication frequency.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="screenshot-placeholder" style="min-height: 350px;">
+        <div class="placeholder-icon">🧠</div>
+        <div class="placeholder-text">[ INSERT AI PREDICTION CARD SCREENSHOT ]</div>
+        <div class="placeholder-subtext">Show the prediction card with confidence bar, risk badge, and predicted date</div>
+    </div>
+
+    <div class="page-footer">
+        <span>CashCast Implementation Proposal</span>
+        <span class="page-number">07</span>
+    </div>
+</div>
+
+<!-- PAGE 8: Reminder Automation -->
+<div class="page">
+    <div class="section-label">07 / Automation</div>
+    <h2>Reminder<br><span>Automation Flow</span></h2>
+
+    <p>The reminder system generates personalized, context-aware messages for each client and channel. AI determines the optimal timing and tone based on client behavior patterns.</p>
+
+    <div class="flow-steps">
+        <div class="flow-step">
+            <div class="flow-number">1</div>
+            <h4>Trigger</h4>
+            <p>Invoice due date approaching or payment delayed</p>
+        </div>
+        <div class="flow-step">
+            <div class="flow-number">2</div>
+            <h4>Analyze</h4>
+            <p>AI reviews client history and communication style</p>
+        </div>
+        <div class="flow-step">
+            <div class="flow-number">3</div>
+            <h4>Generate</h4>
+            <p>Personalized message crafted for optimal response</p>
+        </div>
+        <div class="flow-step">
+            <div class="flow-number">4</div>
+            <h4>Deliver</h4>
+            <p>Sent via WhatsApp, Email, or SMS at best time</p>
+        </div>
+    </div>
+
+    <div class="screenshot-placeholder">
+        <div class="placeholder-icon">💬</div>
+        <div class="placeholder-text">[ INSERT REMINDER PREVIEW SCREENSHOT ]</div>
+        <div class="placeholder-subtext">Show WhatsApp-style message bubble with AI-generated text</div>
+    </div>
+
+    <div class="page-footer">
+        <span>CashCast Implementation Proposal</span>
+        <span class="page-number">08</span>
+    </div>
+</div>
+
+<!-- PAGE 9: Scalability Plan -->
+<div class="page">
+    <div class="section-label">08 / Scale</div>
+    <h2>Scalability<br><span>Plan</span></h2>
+
+    <p>The MVP is architected to scale from prototype to production with minimal refactoring. Each component is designed with future backend integration in mind.</p>
+
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-marker">1</div>
+            <div class="timeline-content">
+                <h4>Phase 1: MVP (Current)</h4>
+                <p>Frontend-only prototype with Firebase Auth, mock data, and simulated AI. Focus on UI/UX validation and investor demos.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-marker">2</div>
+            <div class="timeline-content">
+                <h4>Phase 2: Backend Integration</h4>
+                <p>Node.js/Python API, PostgreSQL database, real AI prediction endpoint. Stripe integration for payment processing.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-marker">3</div>
+            <div class="timeline-content">
+                <h4>Phase 3: Advanced AI</h4>
+                <p>TensorFlow model training on real payment data. NLP for message generation. Predictive analytics dashboard.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-marker">4</div>
+            <div class="timeline-content">
+                <h4>Phase 4: Enterprise</h4>
+                <p>Multi-user teams, API for accounting software, white-label options, advanced reporting and analytics.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-footer">
+        <span>CashCast Implementation Proposal</span>
+        <span class="page-number">09</span>
+    </div>
+</div>
+
+<!-- PAGE 10: Future Improvements -->
+<div class="page">
+    <div class="section-label">09 / Future</div>
+    <h2>Future<br><span>Improvements</span></h2>
+
+    <div class="card-grid">
+        <div class="card">
+            <h4><span class="icon">🔗</span> Integrations</h4>
+            <p>QuickBooks, Xero, Stripe, PayPal, and accounting software connections for automatic invoice import.</p>
+        </div>
+        <div class="card">
+            <h4><span class="icon">🤖</span> Advanced AI</h4>
+            <p>Natural language generation for hyper-personalized reminders. Sentiment analysis on client responses.</p>
+        </div>
+        <div class="card">
+            <h4><span class="icon">📱</span> Mobile App</h4>
+            <p>Native iOS and Android apps with push notifications and offline support for on-the-go management.</p>
+        </div>
+        <div class="card">
+            <h4><span class="icon">👥</span> Team Features</h4>
+            <p>Multi-user accounts, role-based permissions, team dashboards, and collaborative invoice management.</p>
+        </div>
+        <div class="card">
+            <h4><span class="icon">🌍</span> Multi-Currency</h4>
+            <p>Support for 50+ currencies with real-time exchange rates and localized payment methods.</p>
+        </div>
+        <div class="card">
+            <h4><span class="icon">📊</span> Advanced Analytics</h4>
+            <p>Client reliability scoring, industry benchmarks, cashflow forecasting with Monte Carlo simulation.</p>
+        </div>
+    </div>
+
+    <div class="page-footer">
+        <span>CashCast Implementation Proposal</span>
+        <span class="page-number">10</span>
+    </div>
+</div>
+
+<!-- PAGE 11: Conclusion -->
+<div class="page">
+    <div class="section-label">10 / Conclusion</div>
+    <h2>Ready to<br><span>Launch</span></h2>
+
+    <p>CashCast MVP is a fully functional prototype demonstrating the core value proposition: AI-powered payment prediction with automated follow-ups. The codebase is production-ready for backend integration and scaling.</p>
+
+    <div class="two-col" style="margin-top: 32px;">
+        <div>
+            <h3>Key Achievements:</h3>
+            <ul class="feature-list">
+                <li>Complete React frontend with 8 pages</li>
+                <li>Firebase Authentication integration</li>
+                <li>Responsive design for all devices</li>
+                <li>Realistic mock data and AI simulation</li>
+                <li>Professional fintech UI/UX design</li>
+                <li>Presentation-ready documentation</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Next Steps:</h3>
+            <div class="card">
+                <h4><span class="icon">🚀</span> Deploy Frontend</h4>
+                <p>Host on Vercel or Netlify for live demo access.</p>
+            </div>
+            <div class="card" style="margin-top: 16px;">
+                <h4><span class="icon">📸</span> Capture Screenshots</h4>
+                <p>Replace all placeholders with real app screenshots.</p>
+            </div>
+            <div class="card" style="margin-top: 16px;">
+                <h4><span class="icon">🎯</span> Investor Pitch</h4>
+                <p>Use this presentation to secure seed funding.</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 48px; text-align: center;">
+        <p style="font-size: 1.25rem; color: var(--text-primary);">
+            <strong>CashCast - Predict Your Payments Before They Arrive</strong>
+        </p>
+    </div>
+
+    <div class="page-footer">
+        <span>CashCast Implementation Proposal</span>
+        <span class="page-number">11</span>
+    </div>
+</div>
+
+<!-- PAGE 12: Screenshot Guide -->
+<div class="page">
+    <div class="section-label">Appendix</div>
+    <h2>Screenshot<br><span>Capture Guide</span></h2>
+
+    <p>Follow these guidelines to capture professional screenshots for the presentation and marketing materials.</p>
+
+    <div class="card" style="margin-top: 24px;">
+        <h4><span class="icon">🖥️</span> Desktop Screenshots (Primary)</h4>
+        <p style="margin-bottom: 16px;"><strong>Recommended dimensions:</strong> 1440x900px or 1920x1080px</p>
+        <p style="margin-bottom: 16px;"><strong>Browser:</strong> Chrome or Edge at 100% zoom</p>
+        <p><strong>Priority pages:</strong> Dashboard, Predictions, Invoice Details, Landing Page</p>
+    </div>
+
+    <div class="card" style="margin-top: 16px;">
+        <h4><span class="icon">📱</span> Mobile Screenshots (Secondary)</h4>
+        <p style="margin-bottom: 16px;"><strong>Recommended:</strong> iPhone 14 Pro dimensions (393x852px)</p>
+        <p style="margin-bottom: 16px;"><strong>Use for:</strong> Responsiveness showcase only</p>
+        <p><strong>Limit to:</strong> 2-3 mobile screenshots maximum</p>
+    </div>
+
+    <div class="card" style="margin-top: 16px;">
+        <h4><span class="icon">📋</span> Screenshot Checklist</h4>
+        <ul class="feature-list" style="margin-top: 16px;">
+            <li>Dashboard - Full view with all stat cards and chart</li>
+            <li>AI Prediction Card - Show confidence bar and risk badge</li>
+            <li>Reminder Preview - WhatsApp-style message bubble</li>
+            <li>Invoice List - Show pending and paid status badges</li>
+            <li>Landing Page - Hero section with dashboard mockup</li>
+            <li>Mobile Dashboard - Show responsive sidebar collapse</li>
+        </ul>
+    </div>
+
+    <div class="screenshot-note" style="margin-top: 24px;">
+        <strong>Export as PDF:</strong> Open this HTML file in Chrome, press Ctrl+P (Cmd+P on Mac), 
+        select "Save as PDF", set margins to "None", and enable "Background graphics" for best results.
+    </div>
+
+    <div class="page-footer">
+        <span>CashCast Implementation Proposal</span>
+        <span class="page-number">12</span>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+.activity-feed {
+  overflow: hidden;
+}
+
+.activity-feed-title {
+  margin: 0 0 var(--space-5) 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.activity-feed-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.activity-feed-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-bottom: var(--border-subtle);
+}
+
+.activity-feed-item:last-child {
+  border-bottom: none;
+}
+
+.activity-feed-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.activity-feed-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.activity-feed-message {
+  margin: 0 0 var(--space-1) 0;
+  font-size: 0.875rem;
+  color: var(--color-text-primary);
+  line-height: 1.5;
+}
+
+.activity-feed-time {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}

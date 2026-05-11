@@ -1,0 +1,109 @@
+.cashflow-chart {
+  background: var(--color-bg-glass);
+  backdrop-filter: blur(12px);
+  border: var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+}
+
+.cashflow-chart-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.cashflow-chart-header h3 {
+  margin: 0 0 var(--space-1) 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.cashflow-chart-header p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.cashflow-chart-legend {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legend-predicted { background: #8b5cf6; }
+.legend-actual { background: #10b981; }
+.legend-received { background: #3b82f6; }
+
+.cashflow-chart-container {
+  width: 100%;
+}
+
+.chart-tooltip {
+  background: var(--color-bg-secondary);
+  border: var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  box-shadow: var(--shadow-lg);
+}
+
+.chart-tooltip-label {
+  margin: 0 0 var(--space-2) 0;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--color-text-primary);
+}
+
+.chart-tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.8125rem;
+  margin-bottom: var(--space-1);
+}
+
+.chart-tooltip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.chart-tooltip-name {
+  color: var(--color-text-secondary);
+}
+
+.chart-tooltip-value {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .cashflow-chart {
+    padding: var(--space-4);
+  }
+
+  .cashflow-chart-header {
+    flex-direction: column;
+  }
+
+  .cashflow-chart-legend {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
